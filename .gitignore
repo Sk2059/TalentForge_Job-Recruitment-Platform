@@ -1,0 +1,59 @@
+# python 
+pycache/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+
+# Python cache / test files
+
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov
+
+#Type checking
+
+.pyre/
+.pytype/
+
+#Virtual Environment
+venv/
+.venv/
+
+# env files
+.env
+.env.*
+
+# static /media 
+
+staticfiles/
+media/
+
+# Node / Frontend
+
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+#Frontend build output
+dist/
+build/
+.next/
+out/
+
+#Docker
+
+docker-compose.override.yml
+
+#Temporary / Backup Files
+
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
