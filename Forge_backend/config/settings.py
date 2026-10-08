@@ -39,6 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+THIRD_PARTY_APPS = [
+    "rest_framework",
+    "corsheaders",
+]
 CUSTOM_APPS =[
     "accounts",
     "analytics",
@@ -51,11 +55,12 @@ CUSTOM_APPS =[
     "notifications",
 ]
 
-INSTALLED_APPS += CUSTOM_APPS
+INSTALLED_APPS += THIRD_PARTY_APPS + CUSTOM_APPS
 
 AUTH_USER_MODEL = "accounts.User"
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -80,6 +85,10 @@ TEMPLATES = [
             ],
         },
     },
+]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
 ]
 
 WSGI_APPLICATION = 'config.wsgi.application'
@@ -164,3 +173,12 @@ CELERY_RESULT_BACKEND = os.environ.get(
 CELERY_ACCEPT_CONTENT = ["application/json"]
 CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    "DEFAULT_PERMISSION_CLASSES": (
+        "rest_framework.permissions.IsAuthenticated",
+    ),
+}
