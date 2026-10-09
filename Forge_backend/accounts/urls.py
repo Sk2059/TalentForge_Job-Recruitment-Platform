@@ -3,7 +3,13 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
     TokenObtainPairView,
 )
-from .views import (LogoutView, UserRegistrationView, CurrentUserView)
+from .views import (
+    LogoutView,
+    UserRegistrationView,
+    CurrentUserView,
+    MyCandidateProfileView,
+    MyRecruiterProfileView
+)
 
 app_name = 'accounts'
 
@@ -32,5 +38,15 @@ urlpatterns = [
         "logout/",
         LogoutView.as_view(),
         name="logout",
-    )
+    ),
+    path(
+        "candidate/me/",
+        MyCandidateProfileView.as_view(),
+        name="candidate-profile",
+    ),
+    path(
+        "recruiter/me/",
+        MyRecruiterProfileView.as_view(),
+        name="recruiter-profile",
+    ),
 ]

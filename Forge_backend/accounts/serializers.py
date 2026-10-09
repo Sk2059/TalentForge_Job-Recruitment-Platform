@@ -1,6 +1,8 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from rest_framework_simplejwt.tokens import RefreshToken
+from .models import CandidateProfile,RecruiterProfile
+from django.contrib.auth.models import Group
 User = get_user_model()
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
@@ -36,6 +38,13 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
             password=password, 
             **validated_data
             )
+        
+        candidate_group, _ = Group.objects.get_or_create(
+            name="Candidate"
+            )
+        user.groups.add(candidate_group)
+
+        CandidateProfile.objects.create(user=user)
         return user
 
 class UserSerializer(serializers.ModelSerializer):
@@ -58,3 +67,46 @@ class LogoutSerializer(serializers.ModelSerializer):
             self.token.blacklist()
         except AttributeError:
             self.fail('bad_token')
+
+class CandidateProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CandidateProfile
+        fields = [
+            "profile_image",
+            "phone",
+            "headline",
+            "bio",
+            "skills",
+            "experience",
+            "education",
+            "resume",
+            "portfolio_url",
+            "linkedin_url",
+            "github_url",
+            "created_at",
+            "updated_at"
+        ]
+        read_only_fields = [
+            "created_at",
+            "updated_at",
+        ]
+
+
+class RecruiterProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RecruiterProfile
+        fields = [
+            "profile_image",
+            "job_title",
+            "bio",
+            "phone",
+            "is_varified",
+            "created_at",
+            "updated_at",
+        ]
+        read_only_fields = [
+            "is_varified",
+            "created_at",
+            "updated_at"
+        ]
+
