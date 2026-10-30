@@ -25,6 +25,7 @@ urlpatterns = [
     path('api/v1/companies/',include('companies.urls')),
     path("api/v1/jobs/", include("jobs.urls")),
     path("api/v1/applications/", include("applications.urls")),
+    path("api/v1/interviews/", include("interviews.urls")),
 ]
 
 if settings.DEBUG:
